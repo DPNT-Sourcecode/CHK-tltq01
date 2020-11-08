@@ -46,10 +46,11 @@ def checkout(skus):
             total += cart[item] * prices[item]
 
         return total
-    except:
+    except Exception as e:
         return -1
 
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
