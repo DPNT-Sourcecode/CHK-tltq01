@@ -6,8 +6,14 @@ prices = {
 }
 
 special_offers = {
-    "A": (3, 130),
-    "B": (2, 45)
+    "A": {
+        "qty": 3,
+        "price": 130
+    },
+    "B": {
+        "qty": 2,
+        "price": 45
+    }
 }
 
 # noinspection PyUnusedLocal
@@ -22,5 +28,10 @@ def checkout(skus):
             cart[s] = 1
         else:
             cart[s] += 1
+
+    total = 0
+
+    for offer in special_offers.keys:
+
 
 
