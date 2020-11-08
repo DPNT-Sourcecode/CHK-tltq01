@@ -9,6 +9,9 @@ class TestCheckout(unittest.TestCase):
     def test_bad_input(self):
         self.assertEqual(checkout(-1), -1)
 
+    def test_bad_input_string(self):
+        self.assertEqual(checkout("*"), -1)
+
     def test_multiple_items(self):
         self.assertEqual(checkout("ABCD"), 115)
 
@@ -24,3 +27,4 @@ class TestCheckout(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
