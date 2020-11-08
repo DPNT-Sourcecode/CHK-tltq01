@@ -33,16 +33,16 @@ def checkout(skus):
     total = 0
 
     # handle special offers first, if there are enough of the given item
-    for item in special_offers.keys:
+    for item in special_offers.keys():
         while True:
-            if item in cart.keys and cart[item] >= special_offers[item]["qty"]:
+            if item in cart.keys() and cart[item] >= special_offers[item]["qty"]:
                 total += special_offers[item]["price"]
                 cart[item] -= special_offers[item]["qty"]
             else:
                 break
 
     # add the prices of the rest of the items to the final total
-    for item in cart.keys:
+    for item in cart.keys():
         total += cart[item] * prices[item]
 
     return total
@@ -50,8 +50,3 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
-
-
-
-
-
