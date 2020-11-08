@@ -25,6 +25,9 @@ def checkout(skus):
     total = 0
 
     try:
+        if len(skus) == 0:
+            raise ValueError
+
         # count the numer of each item in the cart
         for s in skus:
             if s not in cart:
@@ -52,5 +55,6 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
 
