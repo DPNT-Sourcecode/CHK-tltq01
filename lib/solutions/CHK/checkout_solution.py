@@ -18,5 +18,9 @@ def checkout(skus):
     cart = {}
 
     for s in skus:
-        cart.setdefault(s, 0)
+        if s not in cart:
+            cart[s] = 1
+        else:
+            cart[s] += 1
+
 
