@@ -22,31 +22,34 @@ special_offers = {
 
 def checkout(skus):
     cart = {}
-
-    # count the numer of each item in the cart
-    for s in skus:
-        if s not in cart:
-            cart[s] = 1
-        else:
-            cart[s] += 1
-
     total = 0
 
-    # handle special offers first, if there are enough of the given item
-    for item in special_offers.keys():
-        while True:
-            if item in cart.keys() and cart[item] >= special_offers[item]["qty"]:
-                total += special_offers[item]["price"]
-                cart[item] -= special_offers[item]["qty"]
+    try:
+        # count the numer of each item in the cart
+        for s in skus:
+            if s not in cart:
+                cart[s] = 1
             else:
-                break
+                cart[s] += 1
 
-    # add the prices of the rest of the items to the final total
-    for item in cart.keys():
-        total += cart[item] * prices[item]
+        # handle special offers first, if there are enough of the given item
+        for item in special_offers.keys():
+            while True:
+                if item in cart.keys() and cart[item] >= special_offers[item]["qty"]:
+                    total += special_offers[item]["price"]
+                    cart[item] -= special_offers[item]["qty"]
+                else:
+                    break
 
-    return total
+        # add the prices of the rest of the items to the final total
+        for item in cart.keys():
+            total += cart[item] * prices[item]
+
+        return total
+    except:
+        return -1
 
 
 if __name__ == "__main__":
     print(checkout("A"))
+
