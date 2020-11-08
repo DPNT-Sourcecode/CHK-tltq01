@@ -1,5 +1,5 @@
 import unittest
-from solutions.SUM import sum_solution
+from lib.solutions.SUM import sum_solution
 
 
 class TestSum(unittest.TestCase):
@@ -8,4 +8,3 @@ class TestSum(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-    
