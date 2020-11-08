@@ -3,7 +3,12 @@
 # noinspection PyUnusedLocal
 # friend_name = unicode string
 def hello(friend_name):
-    return "Hello, World!"
+    return "Hello, {0}!".format(friend_name)
+
+
+if __name__ == "__main__":
+    print(hello("Bryan"))
+
 
 
 
