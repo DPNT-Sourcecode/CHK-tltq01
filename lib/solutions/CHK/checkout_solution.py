@@ -22,14 +22,14 @@ prices = {
 
 special_offers = {
     "A": [
-        {"quantity": 3, "discount": 20, "item_to_Discount": "A"},
-        {"quantity": 5, "discount": 50, "item_to_Discount": "A"}
+        {"priority": 1, "quantity": 3, "discount": 20, "item_to_Discount": "A"},
+        {"priority": 2, "quantity": 5, "discount": 50, "item_to_Discount": "A"}
     ],
     "B": [
-        {"quantity": 2, "discount": 15, "item_to_Discount": "B"}
+        {"priority": 1, "quantity": 2, "discount": 15, "item_to_Discount": "B"}
     ],
     "E": [
-        {"quantity": 2, "discount": 30, "item_to_Discount": "B"}
+        {"priority": 1, "quantity": 2, "discount": 30, "item_to_Discount": "B"}
     ]
 }
 
@@ -76,6 +76,7 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
 
 
