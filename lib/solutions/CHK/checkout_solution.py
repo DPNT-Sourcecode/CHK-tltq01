@@ -2,14 +2,20 @@ prices = {
     "A": 50,
     "B": 30,
     "C": 20,
-    "D": 15
+    "D": 15,
+    "E": 40
 }
 
 special_offers = {
-    "A": {
-        "qty": 3,
-        "price": 130
-    },
+    "A": [
+        {
+            "qty": 3,
+            "price": 130
+        },
+        {
+            "qty": 5,
+            "price": 200
+        }],
     "B": {
         "qty": 2,
         "price": 45
@@ -55,3 +61,4 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
