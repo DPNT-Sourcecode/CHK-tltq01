@@ -1,3 +1,19 @@
+
+
+# Item	Price
+# A	50
+# B	30
+# C	20
+# D	15
+# E	40
+
+# Item	Quantity	Discount	DiscountedItem
+# A	3	20	A
+# A	5	50	A
+# B	2	15	B
+# E	2	30	B
+
+
 prices = {
     "A": 50,
     "B": 30,
@@ -61,5 +77,6 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
 
