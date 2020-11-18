@@ -46,6 +46,8 @@ def checkout(skus: str) -> int:
 
                     cart[item_to_discount] -= 1
                     total += (prices[item_to_discount] - discount)
+                else:
+                    break
 
         # total remaining items after discounts
         for item in cart.keys():
@@ -58,3 +60,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
