@@ -58,11 +58,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
-
-
-
-
-
-
-
-
