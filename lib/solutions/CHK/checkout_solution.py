@@ -34,10 +34,10 @@ special_offers = {
 }
 
 
-def get_item_counts(cart):
+def get_item_counts(cart: str) -> dict:
     """count the numer of each item in the cart"""
     items = dict()
-    for s in items:
+    for s in cart:
         if s not in items:
             items[s] = 1
     else:
@@ -45,21 +45,27 @@ def get_item_counts(cart):
 
     return items
 
+
+def get_cart_total(cart: dict) -> int:
+    total = 0
+    for item in cart.keys():
+        total += cart[item] * prices[item]
+
+    return total
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
 
-def checkout(skus):
+def checkout(skus: str):
     cart = {}
     total = 0
 
     try:
         cart = get_item_counts(skus)
-        # handle special offers first, if there are enough of the given item
 
-        # add the prices of the rest of the items to the final total
-        for item in cart.keys():
-            total += cart[item] * prices[item]
+        total = get_cart_total(cart)
+        # handle special offers first, if there are enough of the given item
 
         return total
     except Exception as e:
@@ -86,4 +92,5 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
