@@ -32,30 +32,31 @@ special_offers = [
 ]
 
 
-def get_item_counts(cart: str) -> dict:
-    """count the numer of each item in the cart"""
-    items = dict()
-    for s in cart:
-        if s not in items:
-            items[s] = 1
+def prepare_cart(skus: str) -> dict:
+    cart = dict()
+    for s in skus:
+        if s not in cart:
+            cart[s] = 1
     else:
-        items[s] += 1
-
-    return items
-
-
-def get_item_subtotals(cart: dict) -> dict:
-    subtotals = {}
+        cart[s] += 1
 
     for item in prices.keys():
         subtotals[item] = prices[item] * \
             cart[item] if item in cart.keys() else 0
+
+    return cart
+
+
+def get_item_subtotals(cart: dict) -> dict:
+    subtotals = {}
 
     return subtotals
 
 
 def get_max_discount(cart: dict) -> int:
     best_discount = -1
+
+    if "E" in cart.keys() and cart["E"] > 2 and "B" in cart.keys() and cart["B"] > 0:
 
     for offer in sorted(special_offers, key=lambda offer: offer["priority"]):
         item = offer["eligible_item"]
@@ -73,7 +74,7 @@ def get_max_discount(cart: dict) -> int:
 
 def checkout(skus: str) -> int:
     try:
-        cart = get_item_counts(skus)
+        cart = prepare_cart(skus)
 
         subtotals = get_item_subtotals(cart)
 
@@ -104,6 +105,7 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
 
