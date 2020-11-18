@@ -83,8 +83,3 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
-
-
-
-
-
