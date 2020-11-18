@@ -24,12 +24,14 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
+        # build the cart
         for p in prices.keys():
             cart.setdefault(p, 0)
 
         for s in skus:
             cart[s] += 1
 
+        # ensure we're handling the best discounts first
         for offer in sorted(special_offers, key=lambda offer: offer[2], reverse=True):
             item, quantity, discount, item_to_discount = offer
 
@@ -45,6 +47,7 @@ def checkout(skus: str) -> int:
                     cart[item_to_discount] -= 1
                     total += (prices[item_to_discount] - discount)
 
+        # total remaining items after discounts
         for item in cart.keys():
             total += cart[item] * prices[item]
 
@@ -55,6 +58,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
 
 
