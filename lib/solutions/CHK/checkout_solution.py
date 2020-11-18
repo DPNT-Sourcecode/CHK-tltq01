@@ -20,18 +20,16 @@ prices = {
     "E": 40
 }
 
-special_offers = {
-    "A": [
-        {"priority": 1, "quantity": 3, "discount": 20, "item_to_discount": "A"},
-        {"priority": 2, "quantity": 5, "discount": 50, "item_to_discount": "A"}
-    ],
-    "B": [
-        {"priority": 1, "quantity": 2, "discount": 15, "item_to_discount": "B"}
-    ],
-    "E": [
-        {"priority": 1, "quantity": 2, "discount": 30, "item_to_discount": "B"}
-    ]
-}
+special_offers = [
+    {"priority": 1, "eligible_item": "A", "quantity": 3,
+        "discount": 20, "item_to_discount": "A"},
+    {"priority": 2, "eligible_item": "A", "quantity": 5,
+        "discount": 50, "item_to_discount": "A"},
+    {"priority": 1, "eligible_item": "B", "quantity": 2,
+        "discount": 15, "item_to_discount": "B"},
+    {"priority": 1, "eligible_item": "E", "quantity": 2,
+        "discount": 30, "item_to_discount": "B"}
+]
 
 
 def get_item_counts(cart: str) -> dict:
@@ -46,8 +44,8 @@ def get_item_counts(cart: str) -> dict:
     return items
 
 
-def get_cart_total(cart: dict) -> int:
-    total = 0
+def get_item_subtotals(cart: dict) -> dict:
+    subtotals = {}
     for item in cart.keys():
         total += cart[item] * prices[item]
 
@@ -110,3 +108,4 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
