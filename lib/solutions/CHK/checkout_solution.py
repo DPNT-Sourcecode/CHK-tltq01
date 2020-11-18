@@ -46,18 +46,15 @@ def checkout(skus: str) -> int:
         for item in special_offers.keys():
             offer = special_offers[item]
 
-            while True:
-                if cart[item] > offer["quantity"]:
-                    if offer["item_to_discount"] == item:
-                        cart[item] -= offer["quantity"]
-                        total += (prices[item] *
-                                  offer["quantity"]) - offer["discount"]
-                    elif cart[offer["item_to_discount"]] > 0:
-                        cart[item] -= offer["quantity"]
-                        total += (prices[item] * offer["quantity"])
-                        cart[offer["item_to_discount"]] -= 1
-                else:
-                    break
+            while cart[item] >= offer["quantity"]:
+                if offer["item_to_discount"] == item:
+                    cart[item] -= offer["quantity"]
+                    total += (prices[item] *
+                              offer["quantity"]) - offer["discount"]
+                elif cart[offer["item_to_discount"]] > 0:
+                    cart[item] -= offer["quantity"]
+                    total += (prices[item] * offer["quantity"])
+                    cart[offer["item_to_discount"]] -= 1
 
         for item in cart.keys():
             total += cart[item] * prices[item]
@@ -69,3 +66,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
