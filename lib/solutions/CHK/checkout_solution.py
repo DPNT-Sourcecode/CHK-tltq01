@@ -38,12 +38,13 @@ special_offers = [
 
 def checkout(skus: str) -> int:
     cart = {}
+
     try:
+        for p in prices.keys():
+            cart.setdefault(p, 0)
+
         for s in skus:
-            if s in cart.keys():
-                cart[s] += 1
-            else:
-                cart.setdefault(s, 1)
+            cart[s] += 1
 
     except Exception as e:
         return -1
@@ -51,5 +52,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
 
