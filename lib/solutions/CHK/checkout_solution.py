@@ -56,18 +56,6 @@ def checkout(skus):
     try:
         cart = get_item_counts(skus)
         # handle special offers first, if there are enough of the given item
-        for item in special_offers.keys():
-            # Sort discounts by the greatest amount saved first
-            for offer in sorted(special_offers[item], key=lambda discount: discount["priority"]):
-                while True:
-                    # if discount available and conditions met, add item-prices to total and apply discount
-                    if item in cart.keys() and cart[item] >= offer["quantity"]:
-                        subtotal = prices[item] * offer["quantity"]
-
-                        total += special_offers[item]["discount"]
-                        cart[item] -= special_offers[item]["quantity"]
-                    else:
-                        break
 
         # add the prices of the rest of the items to the final total
         for item in cart.keys():
@@ -80,3 +68,22 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
+    # for item in special_offers.keys():
+    #     # Sort discounts by the greatest amount saved first
+    #     for offer in sorted(special_offers[item], key=lambda discount: discount["priority"]):
+    #         while True:
+    #             # if discount available and conditions met, add item-prices to total and apply discount
+    #             # "EEB"
+    #             if item in cart.keys() and cart[item] >= offer["quantity"]:
+    #                 subtotal = prices[item] * offer["quantity"]  # 2E * 40
+    #                 cart[item] -= offer["quantity"]  # "B"
+
+    #                 if item == offer["item_to_Discount"]:
+    #                     subtotal -= offer["discount"]
+    #                 elif offer["item_to_Discount"] in cart.keys() and cart[offer["item_to_Discount"]] > 0:
+
+    #                 total += subtotal
+    #             else:
+    #                 break
+
