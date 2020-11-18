@@ -47,7 +47,12 @@ def checkout(skus: str) -> int:
             offer = special_offers[item]
             while True:
                 if cart[item] > offer["quantity"]:
-                    pass
+                    if offer["item_to_discount"] == item:
+                        cart[item] -= offer["quantity"]
+                        total += (prices[item] *
+                                  offer["quantity"]) - offer["discount"]
+                    elif cart[offer["item_to_discount"]] > 0:
+                        pass
                 else:
                     break
 
@@ -58,6 +63,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
 
 
