@@ -1,4 +1,4 @@
-
+import Counter
 
 # Item	Price
 # A	50
@@ -22,34 +22,23 @@ prices = {
     "E": 40
 }
 
-
-class Discount:
-    def __init__(self):
-        self.item
-        self.quantity
-        self.discount
-        self.item_to_Discount
-
-
 special_offers = {
     "A": [
-        {
-            "qty": 3,
-            "price": 130
-        },
-        {
-            "qty": 5,
-            "price": 200
-        }],
-    "B": {
-        "qty": 2,
-        "price": 45
-    }
+        {"quantity": 3, "discount": 20, "item_to_Discount": "A"},
+        {"quantity": 5, "discount": 50, "item_to_Discount": "A"}
+    ],
+    "B": [
+        {"quantity": 2, "discount": 15, "item_to_Discount": "B"}
+    ],
+    "E": [
+        {"quantity": 2, "discount": 30, "item_to_Discount": "B"}
+    ]
 }
-
 
 # noinspection PyUnusedLocal
 # skus = unicode string
+
+
 def checkout(skus):
     cart = {}
     total = 0
@@ -83,3 +72,4 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
