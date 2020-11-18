@@ -53,27 +53,31 @@ def get_cart_total(cart: dict) -> int:
 
     return total
 
-# noinspection PyUnusedLocal
-# skus = unicode string
+
+def get_max_discount(cart: dict) -> int:
+    discounts = dict()
+
+    for item in cart.keys():
+
+        # noinspection PyUnusedLocal
+        # skus = unicode string
 
 
 def checkout(skus: str):
-    cart = {}
-    total = 0
-
     try:
         cart = get_item_counts(skus)
 
         total = get_cart_total(cart)
-        # handle special offers first, if there are enough of the given item
 
-        return total
+        max_discount = get_max_discount(cart)
+
+        return total - max_discount
     except Exception as e:
         return -1
 
 
 if __name__ == "__main__":
-    print(checkout("A"))
+    print(checkout("AAABBCDEEE"))
 
     # for item in special_offers.keys():
     #     # Sort discounts by the greatest amount saved first
@@ -92,5 +96,6 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
