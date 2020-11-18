@@ -32,6 +32,17 @@ special_offers = [
 ]
 
 
+class LineItem:
+    def __init__(self, item, price, count):
+        self.item = item
+        self.price = price
+        self.count = count
+        self.discount = 0
+
+    def subtotal(self):
+        return self.price * self.count - self.discount
+
+
 def prepare_cart(skus: str) -> dict:
     cart = dict()
     for s in skus:
@@ -45,12 +56,6 @@ def prepare_cart(skus: str) -> dict:
             cart[item] if item in cart.keys() else 0
 
     return cart
-
-
-def get_item_subtotals(cart: dict) -> dict:
-    subtotals = {}
-
-    return subtotals
 
 
 def get_max_discount(cart: dict) -> int:
@@ -105,9 +110,3 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
-
-
-
-
-
-
