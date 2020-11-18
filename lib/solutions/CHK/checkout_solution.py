@@ -20,12 +20,12 @@ prices = {
     "E": 40
 }
 
-special_offers = {
-    "E": {"quantity": 2, "discount": 30, "item_to_discount": "B"},
-    "A": {"quantity": 5, "discount": 50, "item_to_discount": "A"},
-    "A": {"quantity": 3, "discount": 20, "item_to_discount": "A"},
-    "B": {"quantity": 2, "discount": 15, "item_to_discount": "B"}
-}
+special_offers = [
+    {"item": "E", "quantity": 2, "discount": 30, "item_to_discount": "B"},
+    {"item": "A", "quantity": 5, "discount": 50, "item_to_discount": "A"},
+    {"item": "A", "quantity": 3, "discount": 20, "item_to_discount": "A"},
+    {"item": "B", "quantity": 2, "discount": 15, "item_to_discount": "B"}
+]
 
 
 # noinspection PyUnusedLocal
@@ -43,8 +43,8 @@ def checkout(skus: str) -> int:
         for s in skus:
             cart[s] += 1
 
-        for item in special_offers.keys():
-            offer = special_offers[item]
+        for offer in special_offers.keys():
+            item = offer["item"]
 
             while cart[item] >= offer["quantity"]:
                 if offer["item_to_discount"] == item:
@@ -66,4 +66,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
