@@ -30,7 +30,7 @@ def checkout(skus: str) -> int:
         for s in skus:
             cart[s] += 1
 
-        for offer in special_offers:
+        for offer in sorted(special_offers, lambda offer: offer[2], reverse=True):
             item, quantity, discount, item_to_discount = offer
 
             while cart[item] >= quantity:
@@ -55,6 +55,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
 
 
