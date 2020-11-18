@@ -46,10 +46,12 @@ def get_item_counts(cart: str) -> dict:
 
 def get_item_subtotals(cart: dict) -> dict:
     subtotals = {}
-    for item in cart.keys():
-        total += cart[item] * prices[item]
 
-    return total
+    for item in prices.keys():
+        subtotals[item] = prices[item] * \
+            cart[item] if item in cart.keys() else 0
+
+    return subtotals
 
 
 def get_max_discount(cart: dict) -> int:
@@ -79,7 +81,7 @@ def checkout(skus: str):
     try:
         cart = get_item_counts(skus)
 
-        total = get_cart_total(cart)
+        subtotals = get_item_subtotals(cart)
 
         max_discount = get_max_discount(cart)
 
@@ -108,4 +110,5 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
