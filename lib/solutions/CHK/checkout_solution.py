@@ -1,16 +1,3 @@
-# Item	Price
-# A	50
-# B	30
-# C	20
-# D	15
-# E	40
-
-# Item	Quantity	Discount	ItemToDiscount
-# A	3	20	A
-# A	5	50	A
-# B	2	15	B
-# E	2	30	B
-
 
 prices = {
     "A": 50,
@@ -27,7 +14,6 @@ special_offers = [
     {"item": "B", "quantity": 2, "discount": 15, "item_to_discount": "B"}
 ]
 
-
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -43,7 +29,7 @@ def checkout(skus: str) -> int:
         for s in skus:
             cart[s] += 1
 
-        for offer in special_offers.keys():
+        for offer in special_offers:
             item = offer["item"]
 
             while cart[item] >= offer["quantity"]:
@@ -54,7 +40,10 @@ def checkout(skus: str) -> int:
                 elif cart[offer["item_to_discount"]] > 0:
                     cart[item] -= offer["quantity"]
                     total += (prices[item] * offer["quantity"])
+
                     cart[offer["item_to_discount"]] -= 1
+                    total += (prices[offer["item_to_discount"]
+                                     ] - offer["discount"])
 
         for item in cart.keys():
             total += cart[item] * prices[item]
@@ -66,5 +55,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
 
