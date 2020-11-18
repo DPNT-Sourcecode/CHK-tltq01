@@ -22,14 +22,14 @@ prices = {
 
 special_offers = {
     "A": [
-        {"priority": 1, "quantity": 3, "discount": 20, "item_to_Discount": "A"},
-        {"priority": 2, "quantity": 5, "discount": 50, "item_to_Discount": "A"}
+        {"priority": 1, "quantity": 3, "discount": 20, "item_to_discount": "A"},
+        {"priority": 2, "quantity": 5, "discount": 50, "item_to_discount": "A"}
     ],
     "B": [
-        {"priority": 1, "quantity": 2, "discount": 15, "item_to_Discount": "B"}
+        {"priority": 1, "quantity": 2, "discount": 15, "item_to_discount": "B"}
     ],
     "E": [
-        {"priority": 1, "quantity": 2, "discount": 30, "item_to_Discount": "B"}
+        {"priority": 1, "quantity": 2, "discount": 30, "item_to_discount": "B"}
     ]
 }
 
@@ -58,8 +58,19 @@ def get_max_discount(cart: dict) -> int:
     discounts = dict()
 
     for item in cart.keys():
+        subtotal = 0
         if item in special_offers.keys():
-            for discount in sorted(special_offers[item], key=lambda discount: discount["priority"]):
+            for offer in sorted(special_offers[item], key=lambda discount: discount["priority"]):
+                if cart[item] >= offer["quantity"]:
+                    subtotal += prices[item] * offer["quantity"]
+                    cart[item] -= offer["quantity"]
+
+                    if item == offer["item_to_discount"]:
+                        subtotal -= offer["discount"]
+                    elif offer["item_to_discount"] in cart.keys() and cart[offer["item_to_discount"]] > 0:
+                        # What if B's have already been counted!?
+                        cart[offer["item_to_discount"]] -= 1
+
     return sum(discounts.values())
 
 
@@ -92,13 +103,14 @@ if __name__ == "__main__":
     #                 subtotal = prices[item] * offer["quantity"]  # 2E * 40
     #                 cart[item] -= offer["quantity"]  # "B"
 
-    #                 if item == offer["item_to_Discount"]:
+    #                 if item == offer["item_to_discount"]:
     #                     subtotal -= offer["discount"]
-    #                 elif offer["item_to_Discount"] in cart.keys() and cart[offer["item_to_Discount"]] > 0:
+    #                 elif offer["item_to_discount"] in cart.keys() and cart[offer["item_to_discount"]] > 0:
 
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
 
