@@ -1,5 +1,3 @@
-import Counter
-
 # Item	Price
 # A	50
 # B	30
@@ -35,6 +33,18 @@ special_offers = {
     ]
 }
 
+
+def get_item_counts(cart):
+    """count the numer of each item in the cart"""
+    items = dict()
+   for s in items:
+        if s not in items:
+            items[s] = 1
+        else:
+            items[s] += 1
+
+    return items
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -44,13 +54,7 @@ def checkout(skus):
     total = 0
 
     try:
-        # count the numer of each item in the cart
-        for s in skus:
-            if s not in cart:
-                cart[s] = 1
-            else:
-                cart[s] += 1
-
+        cart = get_item_counts(cart)
         # handle special offers first, if there are enough of the given item
         for item in special_offers.keys():
             while True:
@@ -72,4 +76,5 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
