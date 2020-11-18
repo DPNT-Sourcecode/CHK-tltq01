@@ -57,7 +57,7 @@ def get_item_subtotals(cart: dict) -> dict:
 def get_max_discount(cart: dict) -> int:
     best_discount = -1
 
-    for offers in sorted(special_offers, key=lambda discount: discount["priority"]):
+    for offer in sorted(special_offers, key=lambda offer: offer["priority"]):
 
         # discounts = dict()
         # for item in cart.keys():
@@ -113,6 +113,7 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
 
