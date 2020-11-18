@@ -7,7 +7,7 @@
 # D	15
 # E	40
 
-# Item	Quantity	Discount	DiscountedItem
+# Item	Quantity	Discount	ItemToDiscount
 # A	3	20	A
 # A	5	50	A
 # B	2	15	B
@@ -21,6 +21,15 @@ prices = {
     "D": 15,
     "E": 40
 }
+
+
+class Discount:
+    def __init__(self):
+        self.item
+        self.quantity
+        self.discount
+        self.item_to_Discount
+
 
 special_offers = {
     "A": [
@@ -77,6 +86,7 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
 
 
