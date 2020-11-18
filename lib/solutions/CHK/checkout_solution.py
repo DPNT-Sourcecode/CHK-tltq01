@@ -33,8 +33,7 @@ special_offers = [
 
 
 class LineItem:
-    def __init__(self, item, price, count):
-        self.item = item
+    def __init__(self, price, count):
         self.price = price
         self.count = count
         self.discount = 0
@@ -46,14 +45,10 @@ class LineItem:
 def prepare_cart(skus: str) -> dict:
     cart = dict()
     for s in skus:
-        if s not in cart:
-            cart[s] = 1
+        if s not in cart.keys():
+            cart[s] = LineItem(prices[s], 1)
     else:
-        cart[s] += 1
-
-    for item in prices.keys():
-        subtotals[item] = prices[item] * \
-            cart[item] if item in cart.keys() else 0
+        cart[s].count += 1
 
     return cart
 
@@ -110,3 +105,4 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
