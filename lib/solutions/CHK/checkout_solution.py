@@ -58,29 +58,20 @@ def get_max_discount(cart: dict) -> int:
     best_discount = -1
 
     for offer in sorted(special_offers, key=lambda offer: offer["priority"]):
+        item = offer["eligible_item"]
+        if item in cart.keys() and cart[item] >= offer["quantity"]:
+            discounted_item = offer["item_to_discount"]
+            if discounted_item == item:
+                pass
+            else:
+                if discounted_item in cart.keys() and cart[discounted_item] > 1:
+                    pass
 
-        # discounts = dict()
-        # for item in cart.keys():
-        #     subtotal = 0
-        #     if item in special_offers.keys():
-        #         for offer in sorted(special_offers[item], key=lambda discount: discount["priority"]):
-        #             if cart[item] >= offer["quantity"]:
-        #                 subtotal += prices[item] * offer["quantity"]
-        #                 cart[item] -= offer["quantity"]
-
-        #                 if item == offer["item_to_discount"]:
-        #                     subtotal -= offer["discount"]
-        #                 elif offer["item_to_discount"] in cart.keys() and cart[offer["item_to_discount"]] > 0:
-        #                     # What if B's have already been counted!?
-        #                     cart[offer["item_to_discount"]] -= 1
-
-        # return sum(discounts.values())
-
-        # noinspection PyUnusedLocal
-        # skus = unicode string
+# noinspection PyUnusedLocal
+# skus = unicode string
 
 
-def checkout(skus: str):
+def checkout(skus: str) -> int:
     try:
         cart = get_item_counts(skus)
 
@@ -113,6 +104,7 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
 
