@@ -22,10 +22,9 @@ special_offers = {
     }
 }
 
+
 # noinspection PyUnusedLocal
 # skus = unicode string
-
-
 def checkout(skus):
     cart = {}
     total = 0
@@ -45,6 +44,7 @@ def checkout(skus):
         for item in special_offers.keys():
             while True:
                 if item in cart.keys() and cart[item] >= special_offers[item]["qty"]:
+
                     total += special_offers[item]["price"]
                     cart[item] -= special_offers[item]["qty"]
                 else:
@@ -61,4 +61,5 @@ def checkout(skus):
 
 if __name__ == "__main__":
     print(checkout("A"))
+
 
