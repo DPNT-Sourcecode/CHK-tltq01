@@ -58,10 +58,13 @@ def get_max_discount(cart: dict) -> int:
     discounts = dict()
 
     for item in cart.keys():
+        if item in special_offers.keys():
+            for discount in sorted(special_offers[item], key=lambda discount: discount["priority"]):
+    return sum(discounts.values())
 
-        # noinspection PyUnusedLocal
-        # skus = unicode string
 
+# noinspection PyUnusedLocal
+# skus = unicode string
 
 def checkout(skus: str):
     try:
@@ -96,6 +99,7 @@ if __name__ == "__main__":
     #                 total += subtotal
     #             else:
     #                 break
+
 
 
 
