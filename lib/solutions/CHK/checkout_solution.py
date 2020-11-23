@@ -1,7 +1,9 @@
 import json
 from os import path
-from models.price import Price
-from models.discount import Discount
+# from models.price import Price
+# from models.discount import Discount
+from lib.models.price import Price
+from lib.models.discount import Discount
 
 root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
@@ -95,4 +97,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
