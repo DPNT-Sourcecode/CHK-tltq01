@@ -19,9 +19,7 @@ def load_prices() -> list:
     data = load_table('db\\items.json')
     prices = []
     for d in data:
-        p = Price()
-        p.item_id = d["item_id"]
-        p.price = d["price"]
+        p = Price(d["item_id"], int(d["price"]))
         prices.append(p)
 
     return prices
@@ -38,11 +36,10 @@ def checkout(skus: str) -> int:
         prices = load_prices()
         discounts = load_table('db\\discounts.json')
 
-        for p in prices.keys():
-            cart.setdefault(p, 0)
-
         # build the cart
         for s in skus:
+            if s not in cart.keys():
+                cart.setdefault(s, 0)
             cart[s] += 1
 
         # ensure we're handling the best discounts first
@@ -77,12 +74,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
-
-
-
-
-
-
-
-
-
