@@ -64,45 +64,51 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("KK"), 150)
 
 # 3N get one M free
-    def test_special_offer_3_n(self):
+    def test_special_offer_three_n(self):
         self.assertEqual(checkout("NNN"), 120)
 
     def test_special_offer_three_n_discount_m(self):
         self.assertEqual(checkout("NNNM"), 120)
 
 # 5P for 200
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_five_p(self):
+        self.assertEqual(checkout("PPPPP"), 200)
 
 
 # 3Q for 80
 
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_three_q(self):
+        self.assertEqual(checkout("QQQ"), 80)
 
 
 # 3R get one Q free
 
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_three_r(self):
+        self.assertEqual(checkout("RRR"), 150)
+
+    def test_special_offer_three_r_discount_q(self):
+        self.assertEqual(checkout("RRRQ"), 150)
 
 
 # 3U get one U free
 
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_three_u(self):
+        self.assertEqual(checkout("UUU"), 120)
+
+    def test_special_offer_four_u_discount(self):
+        self.assertEqual(checkout("UUUU"), 120)
 
 
 # 2V for 90
 
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_two_v(self):
+        self.assertEqual(checkout("VV"), 90)
 
 
 # 3V for 130
 
-    def test_special_offer_3_n(self):
-        self.assertEqual(checkout("NNN"), 120)
+    def test_special_offer_three_v(self):
+        self.assertEqual(checkout("VVV"), 130)
 
 
 class TestLoadTable(unittest.TestCase):
@@ -119,5 +125,6 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
 
