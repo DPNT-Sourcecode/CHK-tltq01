@@ -20,7 +20,7 @@ def load_prices() -> list:
     prices = []
     for d in data:
         p = Price()
-        p.itemId = d["itemId"]
+        p.item_id = d["item_id"]
         p.price = d["price"]
         prices.append(p)
 
@@ -48,9 +48,9 @@ def checkout(skus: str) -> int:
         # ensure we're handling the best discounts first
         for offer in sorted(discounts, key=lambda offer: offer[2], reverse=True):
             item_id, quantity, discount, discounted_item_id = offer
-            item = filter(lambda p: p.itemId == item_id, prices)
+            item = filter(lambda p: p.item_id == item_id, prices)
             discounted_item = filter(
-                lambda p: p.itemId == discounted_item_id, prices)
+                lambda p: p.item_id == discounted_item_id, prices)
 
             while cart[item_id] >= quantity:
                 if discounted_item_id == item_id:
@@ -62,7 +62,7 @@ def checkout(skus: str) -> int:
                     total += (item.price * quantity)
 
                     cart[discounted_item_id] -= 1
-                    total += (prices[discounted_item_id] - discount)
+                    total += (discounted_item.price - discount)
                 else:
                     break
 
@@ -77,6 +77,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
