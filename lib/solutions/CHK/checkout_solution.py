@@ -1,6 +1,7 @@
 import json
 from os import path
 from models.price import Price
+from models.discount import Discount
 
 root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
@@ -24,6 +25,18 @@ def load_prices() -> list:
 
     return prices
 
+
+def load_discounts() -> list:
+    data = load_table('db\\discounts.json')
+    discounts = []
+    for d in data:
+        p = Discount(d["item_id"], int(d["quantity"]),
+                     int(d["amount"]), d["item_to_discount"])
+        discounts.append(p)
+
+    return discounts
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -34,7 +47,7 @@ def checkout(skus: str) -> int:
 
     try:
         prices = load_prices()
-        discounts = load_table('db\\discounts.json')
+        discounts = load_discounts()
 
         # build the cart
         for s in skus:
@@ -45,8 +58,7 @@ def checkout(skus: str) -> int:
         # ensure we're handling the best discounts first
         sorted_discounts = sorted(
             discounts, key=lambda offer: offer['amount'], reverse=True)
-        for offer in sorted_discounts:
-            amount, item_id, item_to_discount, quantity = offer
+        for discount in sorted_discounts:
             item = filter(lambda p: p.item_id == item_id, prices)
             discounted_item = filter(
                 lambda p: p.item_id == item_to_discount, prices)
@@ -76,5 +88,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
