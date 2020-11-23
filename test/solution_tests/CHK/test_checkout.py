@@ -39,6 +39,16 @@ class TestCheckout(unittest.TestCase):
     def test_special_offer_six_a(self):
         self.assertEqual(checkout("AAAAAA"), 250)
 
+    # def test_special_offer_one_f(self):
+    #     self.assertEqual(checkout("F"), 10)
+
+    # def test_special_offer_two_f(self):
+    #     self.assertEqual(checkout("FF"), 20)
+
+    # def test_special_offer_three_f(self):
+    #     self.assertEqual(checkout("FFF"), 20)
+
 
 if __name__ == "__main__":
     unittest.main()
+

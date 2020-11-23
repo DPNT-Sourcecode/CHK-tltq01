@@ -12,7 +12,8 @@ special_offers = [
     ["A", 5, 50, "A"],
     ["E", 2, 30, "B"],
     ["A", 3, 20, "A"],
-    ["B", 2, 15, "B"]
+    ["B", 2, 15, "B"],
+    ["F", 3, 10, "F"]
 ]
 
 # noinspection PyUnusedLocal
@@ -60,3 +61,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
