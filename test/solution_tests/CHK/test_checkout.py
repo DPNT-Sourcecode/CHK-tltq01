@@ -49,6 +49,11 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("FFF"), 20)
 
 
+class TestDiscounts(unittest.TestCase):
+    def test_special_offer_three_f(self):
+        self.assertEqual(checkout("FFF"), 20)
+
+
 class TestLoadTable(unittest.TestCase):
     def test_load_table_not_none(self):
         self.assertIsNotNone(load_table(
@@ -63,3 +68,4 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
