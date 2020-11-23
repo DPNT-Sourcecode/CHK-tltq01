@@ -43,7 +43,9 @@ def checkout(skus: str) -> int:
             cart[s] += 1
 
         # ensure we're handling the best discounts first
-        for offer in sorted(discounts, key=lambda offer: offer['amount'], reverse=True):
+        sorted_discounts = sorted(
+            discounts, key=lambda offer: offer['amount'], reverse=True)
+        for offer in sorted_discounts:
             amount, item_id, item_to_discount, quantity = offer
             item = filter(lambda p: p.item_id == item_id, prices)
             discounted_item = filter(
@@ -74,4 +76,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
