@@ -6,7 +6,9 @@ root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
 def load_table(file_path: str) -> dict:
     data = None
-    with open(file_path, 'r') as file:
+    abs_path = path.join(root, file_path)
+
+    with open(abs_path, 'r') as file:
         data = json.load(file)
 
     return data
@@ -21,8 +23,8 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
-        prices = load_table('\\db\\items.json')
-        discounts = load_table('\\db\\discounts.json')
+        prices = load_table('db\\items.json')
+        discounts = load_table('db\\discounts.json')
 
         for p in prices.keys():
             cart.setdefault(p, 0)
@@ -60,6 +62,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
