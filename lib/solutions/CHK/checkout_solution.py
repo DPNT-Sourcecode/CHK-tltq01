@@ -15,11 +15,16 @@ def load_table(file_path: str) -> dict:
     return data
 
 
-def load_prices() -> dict:
+def load_prices() -> list:
     data = load_table('db\\items.json')
-    prices = {}
+    prices = []
     for d in data:
         p = Price()
+        p.itemId = d["itemId"]
+        p.price = d["price"]
+        prices.append(p)
+
+    return prices
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -69,6 +74,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
