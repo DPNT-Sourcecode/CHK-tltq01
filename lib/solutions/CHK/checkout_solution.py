@@ -57,25 +57,26 @@ def checkout(skus: str) -> int:
 
         # ensure we're handling the best discounts first
         sorted_discounts = sorted(
-            discounts, key=lambda offer: offer['amount'], reverse=True)
+            discounts, key=lambda d: d.amount, reverse=True)
         for discount in sorted_discounts:
             item = filter(lambda p: p.item_id == item_id, prices)
             discounted_item = filter(
-                lambda p: p.item_id == item_to_discount, prices)
+                lambda p: p.item_id == discount.item_to_discount, prices)
 
-            while cart[item_id] >= quantity:
-                if item_to_discount == item_id:
-                    cart[item_id] -= quantity
-                    total += (item.price *
-                              quantity) - amount
-                elif cart[item_to_discount] > 0:
-                    cart[item_id] -= quantity
-                    total += (item.price * quantity)
+            if discount.item_id in cart.keys():
+                while cart[discount.item_id] >= discount.quantity:
+                    if discount.item_to_discount == discount.item_id:
+                        cart[discount.item_id] -= discount.quantity
+                        total += (item.price *
+                                  discount.quantity) - discount.amount
+                    elif cart[discount.item_to_discount] > 0:
+                        cart[discount.item_id] -= discount.quantity
+                        total += (item.price * discount.quantity)
 
-                    cart[item_to_discount] -= 1
-                    total += (discounted_item.price - amount)
-                else:
-                    break
+                        cart[discount.item_to_discount] -= 1
+                        total += (discounted_item.price - discount.amount)
+                    else:
+                        break
 
         # total remaining items after discounts
         for item_id in cart.keys():
@@ -88,6 +89,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
