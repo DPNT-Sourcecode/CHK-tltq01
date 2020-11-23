@@ -26,7 +26,7 @@ def load_prices() -> list:
     return prices
 
 
-def load_discounts() -> list:
+def load_discounts(cart) -> list:
     data = load_table('db\\discounts.json')
     discounts = []
     for d in data:
@@ -34,9 +34,12 @@ def load_discounts() -> list:
                      int(d["amount"]), d["item_to_discount"])
         discounts.append(p)
 
-        # ensure we're handling the best discounts first
-        sorted_discounts = sorted(
-            discounts, key=lambda d: d.amount, reverse=True)
+    # filter for only items in cart
+    filtered_discounts = filter(lambda: d: d.item_id in cart, discounts)
+
+    # ensure we're handling the best discounts first
+    sorted_discounts = sorted(
+        filtered_discounts, key=lambda d: d.amount, reverse=True)
     return sorted_discounts
 
 
@@ -50,13 +53,14 @@ def checkout(skus: str) -> int:
 
     try:
         prices = load_prices()
-        discounts = load_discounts()
 
         # build the cart
         for s in skus:
             if s not in cart.keys():
                 cart.setdefault(s, 0)
             cart[s] += 1
+
+        discounts = load_discounts(cart.keys())
 
         for discount in discounts:
             item = filter(lambda p: p.item_id == item_id, prices)
@@ -89,6 +93,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
