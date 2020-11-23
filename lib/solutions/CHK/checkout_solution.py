@@ -34,7 +34,10 @@ def load_discounts() -> list:
                      int(d["amount"]), d["item_to_discount"])
         discounts.append(p)
 
-    return discounts
+        # ensure we're handling the best discounts first
+        sorted_discounts = sorted(
+            discounts, key=lambda d: d.amount, reverse=True)
+    return sorted_discounts
 
 
 # noinspection PyUnusedLocal
@@ -55,10 +58,7 @@ def checkout(skus: str) -> int:
                 cart.setdefault(s, 0)
             cart[s] += 1
 
-        # ensure we're handling the best discounts first
-        sorted_discounts = sorted(
-            discounts, key=lambda d: d.amount, reverse=True)
-        for discount in sorted_discounts:
+        for discount in discounts:
             item = filter(lambda p: p.item_id == item_id, prices)
             discounted_item = filter(
                 lambda p: p.item_id == discount.item_to_discount, prices)
@@ -69,7 +69,7 @@ def checkout(skus: str) -> int:
                         cart[discount.item_id] -= discount.quantity
                         total += (item.price *
                                   discount.quantity) - discount.amount
-                    elif cart[discount.item_to_discount] > 0:
+                    elif discount.item_to_discount in cart.keys() and cart[discount.item_to_discount] > 0:
                         cart[discount.item_id] -= discount.quantity
                         total += (item.price * discount.quantity)
 
@@ -89,6 +89,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
