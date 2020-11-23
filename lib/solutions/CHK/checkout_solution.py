@@ -47,25 +47,28 @@ def checkout(skus: str) -> int:
 
         # ensure we're handling the best discounts first
         for offer in sorted(discounts, key=lambda offer: offer[2], reverse=True):
-            item, quantity, discount, item_to_discount = offer
+            item_id, quantity, discount, discounted_item_id = offer
+            item = filter(lambda p: p.itemId == item_id, prices)
+            discounted_item = filter(
+                lambda p: p.itemId == discounted_item_id, prices)
 
-            while cart[item] >= quantity:
-                if item_to_discount == item:
-                    cart[item] -= quantity
-                    total += (prices[item] *
+            while cart[item_id] >= quantity:
+                if discounted_item_id == item_id:
+                    cart[item_id] -= quantity
+                    total += (item.price *
                               quantity) - discount
-                elif cart[item_to_discount] > 0:
-                    cart[item] -= quantity
-                    total += (prices[item] * quantity)
+                elif cart[discounted_item_id] > 0:
+                    cart[item_id] -= quantity
+                    total += (item.price * quantity)
 
-                    cart[item_to_discount] -= 1
-                    total += (prices[item_to_discount] - discount)
+                    cart[discounted_item_id] -= 1
+                    total += (prices[discounted_item_id] - discount)
                 else:
                     break
 
         # total remaining items after discounts
-        for item in cart.keys():
-            total += cart[item] * prices[item]
+        for item_id in cart.keys():
+            total += cart[item_id] * item.price
 
         return total
     except Exception as e:
@@ -74,6 +77,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
