@@ -17,6 +17,12 @@ special_offers = [
     ["F", 3, 10, "F"]
 ]
 
+
+def load_table(path: str) -> dict
+
+
+pass
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -62,3 +68,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
