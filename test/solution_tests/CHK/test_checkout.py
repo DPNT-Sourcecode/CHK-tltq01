@@ -1,5 +1,5 @@
 import unittest
-from lib.solutions.CHK.checkout_solution import checkout
+from lib.solutions.CHK.checkout_solution import checkout, load_table
 
 
 class TestCheckout(unittest.TestCase):
@@ -49,5 +49,11 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("FFF"), 20)
 
 
+class TestLoadTable(unittest.TestCase):
+    def test_load_table(self):
+        self.assertEqual(load_table("A"), 50)
+
+
 if __name__ == "__main__":
     unittest.main()
+
