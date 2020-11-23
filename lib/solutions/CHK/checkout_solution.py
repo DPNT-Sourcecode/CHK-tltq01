@@ -1,5 +1,6 @@
 import json
 from os import path
+from models.price import Price
 
 root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
@@ -14,6 +15,12 @@ def load_table(file_path: str) -> dict:
     return data
 
 
+def load_prices() -> dict:
+    data = load_table('db\\items.json')
+    prices = {}
+    for d in data:
+        p = Price()
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -23,7 +30,7 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
-        prices = load_table('db\\items.json')
+        prices = load_prices()
         discounts = load_table('db\\discounts.json')
 
         for p in prices.keys():
@@ -62,6 +69,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
