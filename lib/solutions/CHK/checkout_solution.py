@@ -4,9 +4,9 @@ from os import path
 root = '/c/Dev/Python/i3verticals/accelerate_runner'
 
 
-def load_table(path: str) -> dict:
+def load_table(file_path: str) -> dict:
     data = None
-    with open(path, 'r') as file:
+    with open(path.join(root, file_path), 'r') as file:
         data = json.load(file)
 
     return data
@@ -60,4 +60,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
