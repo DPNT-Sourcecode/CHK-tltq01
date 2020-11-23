@@ -50,10 +50,14 @@ class TestCheckout(unittest.TestCase):
 
 
 class TestLoadTable(unittest.TestCase):
-    def test_load_table(self):
-        self.assertEqual(load_table("A"), 50)
+    def test_load_table_not_none(self):
+        self.assertIsNotNone(load_table('..\..\db\items.json'))
+
+    def test_load_table_is_dict(self):
+        d = load_table('..\..\db\discounts.json')
+        self.assertDictContainsSubset(
+            {"itemId": "A", "quantity": 3, "amount": 20, "item_to_discount": "A"}, d)
 
 
 if __name__ == "__main__":
     unittest.main()
-
