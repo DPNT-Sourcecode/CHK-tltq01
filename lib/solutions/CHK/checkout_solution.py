@@ -4,7 +4,8 @@ prices = {
     "B": 30,
     "C": 20,
     "D": 15,
-    "E": 40
+    "E": 40,
+    "F": 10
 }
 
 special_offers = [
@@ -61,4 +62,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEE"))
+
 
