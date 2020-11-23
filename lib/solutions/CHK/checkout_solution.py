@@ -32,14 +32,14 @@ def load_discounts(cart) -> list:
     for d in data:
         p = Discount(d["item_id"], int(d["quantity"]),
                      int(d["amount"]), d["item_to_discount"])
-        discounts.append(p)
 
-    # filter for only items in cart
-    filtered_discounts = list(filter(lambda d: d.item_id in cart, discounts))
+        # filter for only items in cart
+        if p.item_id in cart:
+            discounts.append(p)
 
     # ensure we're handling the best discounts first
     sorted_discounts = sorted(
-        filtered_discounts, key=lambda d: d.amount, reverse=True)
+        discounts, key=lambda d: d.amount, reverse=True)
     return sorted_discounts
 
 
@@ -63,9 +63,9 @@ def checkout(skus: str) -> int:
         discounts = load_discounts(cart.keys())
 
         for discount in discounts:
-            item = filter(lambda p: p.item_id == item_id, prices)
-            discounted_item = filter(
-                lambda p: p.item_id == discount.item_to_discount, prices)
+            item = list(filter(lambda p: p.item_id == item_id, prices))
+            discounted_item = list(filter(
+                lambda p: p.item_id == discount.item_to_discount, prices))
 
             if discount.item_id in cart.keys():
                 while cart[discount.item_id] >= discount.quantity:
@@ -94,6 +94,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
