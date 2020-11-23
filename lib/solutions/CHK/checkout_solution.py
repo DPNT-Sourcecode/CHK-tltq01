@@ -35,7 +35,7 @@ def load_discounts(cart) -> list:
         discounts.append(p)
 
     # filter for only items in cart
-    filtered_discounts = filter(lambda: d: d.item_id in cart, discounts)
+    filtered_discounts = list(filter(lambda d: d.item_id in cart, discounts))
 
     # ensure we're handling the best discounts first
     sorted_discounts = sorted(
@@ -84,6 +84,7 @@ def checkout(skus: str) -> int:
 
         # total remaining items after discounts
         for item_id in cart.keys():
+            item = filter(lambda p: p.item_id == item_id, prices)
             total += cart[item_id] * item.price
 
         return total
@@ -93,6 +94,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
