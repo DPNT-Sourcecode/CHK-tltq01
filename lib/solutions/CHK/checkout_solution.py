@@ -1,7 +1,7 @@
 import json
 from os import path
 
-root = '/c/Dev/Python/i3verticals/accelerate_runner'
+root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
 
 def load_table(file_path: str) -> dict:
@@ -21,9 +21,8 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
-        prices = load_table(
-            'C:\Dev\Python\i3verticals\accelerate_runner\db\items.json')
-        discounts = load_table('/db/discounts.json')
+        prices = load_table('\\db\\items.json')
+        discounts = load_table('\\db\\discounts.json')
 
         for p in prices.keys():
             cart.setdefault(p, 0)
@@ -61,6 +60,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 

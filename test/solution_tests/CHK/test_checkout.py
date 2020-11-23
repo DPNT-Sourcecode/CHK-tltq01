@@ -58,10 +58,11 @@ class TestLoadTable(unittest.TestCase):
         d = load_table(
             'C:\\Dev\\Python\\i3verticals\\accelerate_runner\\db\\discounts.json')
         self.assertDictContainsSubset(
-            {"itemId": "A", "quantity": 3, "amount": 20, "item_to_discount": "A"}, d)
+            {'amount': 20, 'itemId': 'A', 'item_to_discount': 'A', 'quantity': 3}, d[0])
 
 
 if __name__ == "__main__":
     unittest.main()
+
 
 
