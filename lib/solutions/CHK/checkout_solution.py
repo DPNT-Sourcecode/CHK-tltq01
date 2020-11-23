@@ -1,27 +1,13 @@
-
-prices = {
-    "A": 50,
-    "B": 30,
-    "C": 20,
-    "D": 15,
-    "E": 40,
-    "F": 10
-}
-
-special_offers = [
-    # item, quantity, discount, item_to_discount
-    ["A", 5, 50, "A"],
-    ["E", 2, 30, "B"],
-    ["A", 3, 20, "A"],
-    ["B", 2, 15, "B"],
-    ["F", 3, 10, "F"]
-]
+import json
 
 
-def load_table(path: str) -> dict
+def load_table(path: str) -> dict:
+    data = None
+    with open(path, 'r') as file:
+        data = json.load(file)
 
+    return data
 
-pass
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -32,15 +18,18 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
-        # build the cart
+        prices = load_table('..\..\db\items.json')
+        discounts = load_table('..\..\db\discounts.json')
+
         for p in prices.keys():
             cart.setdefault(p, 0)
 
+        # build the cart
         for s in skus:
             cart[s] += 1
 
         # ensure we're handling the best discounts first
-        for offer in sorted(special_offers, key=lambda offer: offer[2], reverse=True):
+        for offer in sorted(discounts, key=lambda offer: offer[2], reverse=True):
             item, quantity, discount, item_to_discount = offer
 
             while cart[item] >= quantity:
@@ -68,4 +57,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
