@@ -2,8 +2,21 @@ import json
 from os import path
 # from models.price import Price
 # from models.discount import Discount
-from lib.models.price import Price
-from lib.models.discount import Discount
+
+
+class Price:
+    def __init__(self, item_id, price):
+        self.item_id = item_id
+        self.price = price
+
+
+class Discount:
+    def __init__(self, item_id, quantity, amount, item_to_discount):
+        self.item_id = item_id
+        self.quantity = quantity
+        self.amount = amount
+        self.item_to_discount = item_to_discount
+
 
 root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
 
@@ -97,5 +110,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
