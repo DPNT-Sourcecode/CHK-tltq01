@@ -85,7 +85,7 @@ def checkout(skus: str) -> int:
 
         # total remaining items after discounts
         for item_id in cart.keys():
-            item = filter(lambda p: p.item_id == item_id, prices)
+            item = next(filter(lambda p: p.item_id == item_id, prices), None)
             total += cart[item_id] * item.price
 
         return total
@@ -95,12 +95,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
-
-
-
-
-
-
-
-
-

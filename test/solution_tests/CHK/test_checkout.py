@@ -52,13 +52,13 @@ class TestCheckout(unittest.TestCase):
 class TestLoadTable(unittest.TestCase):
     def test_load_table_not_none(self):
         self.assertIsNotNone(load_table(
-            'C:\\Dev\\Python\\i3verticals\\accelerate_runner\\db\\items.json'))
+            'db\\items.json'))
 
     def test_load_table_is_dict(self):
         d = load_table(
-            'C:\\Dev\\Python\\i3verticals\\accelerate_runner\\db\\discounts.json')
+            'db\\discounts.json')
         self.assertDictContainsSubset(
-            {'amount': 20, 'itemId': 'A', 'item_to_discount': 'A', 'quantity': 3}, d[0])
+            {'amount': 20, 'item_id': 'A', 'item_to_discount': 'A', 'quantity': 3}, d[0])
 
 
 if __name__ == "__main__":
