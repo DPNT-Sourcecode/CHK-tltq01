@@ -2,7 +2,7 @@ import json
 from os import path
 
 
-class Price:
+class Item:
     def __init__(self, item_id, price):
         self.item_id = item_id
         self.price = price
@@ -30,14 +30,14 @@ def load_table(file_path: str) -> dict:
     return data
 
 
-def load_prices() -> list:
+def load_item_prices() -> list:
     data = load_table('db\\items.json')
-    prices = []
+    items = []
     for d in data:
-        p = Price(d["item_id"], int(d["price"]))
-        prices.append(p)
+        p = Item(d["item_id"], int(d["price"]))
+        items.append(p)
 
-    return prices
+    return items
 
 
 def load_discounts(cart) -> list:
@@ -63,13 +63,13 @@ def get_eligible_discounts(discounts: list, item_id: str) -> list:
     return filter(lambda d: item_id in d.item_list, discounts)
 
 
-def process_basic_discount(discount: Discount, prices: list, cart: dict) -> int:
+def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
     item = next(
-        filter(lambda p: p.item_id in discount.item_list, prices), None)
+        filter(lambda p: p.item_id in discount.item_list, items), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, prices), None)
+        lambda p: p.item_id in discount.discounted_items, items), None)
 
     if discount.item_list in cart.keys():
 
@@ -88,13 +88,13 @@ def process_basic_discount(discount: Discount, prices: list, cart: dict) -> int:
     return total
 
 
-def process_bogo_discount(discount: Discount, prices: list, cart: dict) -> int:
+def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
     item = next(
-        filter(lambda p: p.item_id in discount.item_list, prices,), None)
+        filter(lambda p: p.item_id in discount.item_list, items,), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, prices), None)
+        lambda p: p.item_id in discount.discounted_items, items), None)
 
     if discount.item_list in cart.keys():
 
@@ -110,14 +110,14 @@ def process_bogo_discount(discount: Discount, prices: list, cart: dict) -> int:
     return total
 
 
-def process_group_discount(discount: Discount, prices: list, cart: dict) -> int:
+def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
 
     item = next(
-        filter(lambda p: p.item_id in discount.item_list, prices,), None)
+        filter(lambda p: p.item_id in discount.item_list, items,), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, prices), None)
+        lambda p: p.item_id in discount.discounted_items, items), None)
 
     if discount.item_list in cart.keys():
         pass
@@ -133,7 +133,7 @@ def checkout(skus: str) -> int:
     total = 0
 
     try:
-        prices = load_prices()
+        items = load_item_prices()
 
         # build the cart
         for s in skus:
@@ -145,15 +145,15 @@ def checkout(skus: str) -> int:
 
         for discount in discounts:
             if discount.discount_type == "basic":
-                total += process_basic_discount(discount, prices, cart)
+                total += process_basic_discount(discount, items, cart)
             elif discount.discount_type == "BOGO":
-                total += process_bogo_discount(discount, prices, cart)
+                total += process_bogo_discount(discount, items, cart)
             elif discount.discount_type == "BOGO":
-                total += process_group_discount(discount, prices, cart)
+                total += process_group_discount(discount, items, cart)
 
         # total remaining items after discounts
         for item_id in cart.keys():
-            item = next(filter(lambda p: p.item_id == item_id, prices), None)
+            item = next(filter(lambda p: p.item_id == item_id, items), None)
             total += cart[item_id] * item.price
 
         return total
@@ -163,6 +163,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
