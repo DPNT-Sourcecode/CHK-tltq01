@@ -135,9 +135,11 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
 
             # item count less than remaining items_to_discount
             if cart[item.item_id] > 0 and items_to_discount > 0:
-                items_to_discount -= cart[item.item_id]
-                item_count += cart[item.item_id]
-                cart[item.item_id] = 0
+                discount_quantity = items_to_discount if cart[
+                    item.item_id] > items_to_discount else cart[item.item_id]
+                items_to_discount -= discount_quantity
+                item_count += discount_quantity
+                cart[item.item_id] -= discount_quantity
 
                 if item_count >= discount.quantity:
                     total += discount.amount
@@ -184,9 +186,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
-
-
-
-
-
-
