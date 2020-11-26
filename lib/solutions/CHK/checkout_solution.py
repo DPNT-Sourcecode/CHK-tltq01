@@ -110,6 +110,7 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
                 total += (item.price * discount.quantity)
 
                 if cart[item_to_discount] > 0:
+                    # could add this to discount object instead of hardcoding
                     cart[item_to_discount] -= 1
                     total += (discounted_item.price - discount.amount)
             else:
@@ -198,5 +199,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
