@@ -119,16 +119,16 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 837)
 
     def test_group_two_z(self):
-        self.assertEqual(checkout("ZZ"), 45)
+        self.assertEqual(checkout("ZZ"), 42)
 
     def test_group_three_z(self):
         self.assertEqual(checkout("ZZZ"), 45)
 
-    def test_group_three_different(self):
-        self.assertEqual(checkout("ZXY"), 45)
-
     def test_group_four_z(self):
         self.assertEqual(checkout("ZZZZ"), 66)
+
+    def test_group_three_different(self):
+        self.assertEqual(checkout("ZXY"), 45)
 
     def test_group_desc(self):
         self.assertEqual(checkout("ZXYT"), 62)
@@ -154,4 +154,5 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
