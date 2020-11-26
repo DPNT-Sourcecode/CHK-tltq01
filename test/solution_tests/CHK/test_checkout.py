@@ -61,7 +61,7 @@ class TestCheckout(unittest.TestCase):
 
 # 2K for 150
     def test_special_offer_2_k(self):
-        self.assertEqual(checkout("KK"), 150)
+        self.assertEqual(checkout("KK"), 120)
 
 # 3N get one M free
     def test_special_offer_three_n(self):
@@ -146,4 +146,5 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
