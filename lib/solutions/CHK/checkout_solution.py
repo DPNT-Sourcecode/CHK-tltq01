@@ -111,6 +111,17 @@ def process_bogo_discount(discount: Discount, prices: list, cart: dict) -> int:
 
 
 def process_group_discount(discount: Discount, prices: list, cart: dict) -> int:
+    total = 0
+
+    item = next(
+        filter(lambda p: p.item_id in discount.item_list, prices,), None)
+
+    discounted_item = next(filter(
+        lambda p: p.item_id in discount.discounted_items, prices), None)
+
+    if discount.item_list in cart.keys():
+        pass
+
     return 0
 
 # noinspection PyUnusedLocal
@@ -140,40 +151,6 @@ def checkout(skus: str) -> int:
             elif discount.discount_type == "BOGO":
                 total += process_group_discount(discount, prices, cart)
 
-            item = next(
-                filter(lambda p: p.item_id in discount.item_list, prices,), None)
-
-            discounted_item = next(filter(
-                lambda p: p.item_id in discount.discounted_items, prices), None)
-
-            if discount.item_list in cart.keys():
-
-                while cart[discount.item_id] >= discount.quantity:
-                    # basic discount
-                    # if eligible item is the same as discounted item
-                    if discount.item_to_discount == discount.item_id:
-
-                        # remove item from cart and add price - discount to total
-                        cart[discount.item_id] -= discount.quantity
-
-                        # add the subtotal for the items less the discount to the final amount
-                        total += (item.price *
-                                  discount.quantity) - discount.amount
-
-                    # BOGO discount
-                    elif discount.item_to_discount in cart.keys() and cart[discount.item_to_discount] > 0:
-                        cart[discount.item_id] -= discount.quantity
-                        total += (item.price * discount.quantity)
-
-                        cart[discount.item_to_discount] -= 1
-                        total += (discounted_item.price - discount.amount)
-
-                    # Group Discount
-                    elif False:
-                        pass
-                    else:
-                        break
-
         # total remaining items after discounts
         for item_id in cart.keys():
             item = next(filter(lambda p: p.item_id == item_id, prices), None)
@@ -186,6 +163,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
