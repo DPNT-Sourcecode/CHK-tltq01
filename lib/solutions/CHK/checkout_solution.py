@@ -89,7 +89,7 @@ def checkout(skus: str) -> int:
             discounted_item = next(filter(
                 lambda p: p.item_id in discount.discounted_items, prices), None)
 
-            if discount.item_id in cart.keys():
+            if discount.discounted_items in cart.keys():
                 while cart[discount.item_id] >= discount.quantity:
                     if discount.item_to_discount == discount.item_id:
                         cart[discount.item_id] -= discount.quantity
@@ -116,3 +116,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
