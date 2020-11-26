@@ -48,7 +48,7 @@ def load_discounts(cart) -> list:
                      int(d["amount"]), d["discounted_items"])
 
         # filter for only items in cart
-        if p.item_id in cart:
+        if len(list(filter(lambda c: c in p.item_list, cart))) > 0:
             discounts.append(p)
 
     # ensure we're handling the best discounts first
@@ -93,8 +93,11 @@ def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
 
 def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
+    eligible_item = discount.item_list[0]
+    item_to_discount = discount.discounted_items[0]
+
     item = next(
-        filter(lambda p: p.item_id in discount.item_list, items,), None)
+        filter(lambda i: i.item_id in discount.item_list, items,), None)
 
     discounted_item = next(filter(
         lambda p: p.item_id in discount.discounted_items, items), None)
@@ -166,5 +169,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
