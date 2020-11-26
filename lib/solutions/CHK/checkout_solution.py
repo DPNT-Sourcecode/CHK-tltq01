@@ -1,7 +1,5 @@
 import json
 from os import path
-# from models.price import Price
-# from models.discount import Discount
 
 
 class Price:
@@ -110,6 +108,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
-    prices = load_prices()
-    print(sum(map(lambda p: p.price, prices)))
+
 

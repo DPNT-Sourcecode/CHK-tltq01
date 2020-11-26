@@ -116,7 +116,7 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("VVV"), 130)
 
     def test_special_offer_a_to_z(self):
-        self.assertEqual(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 853)
+        self.assertEqual(checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 965)
 
 
 class TestLoadTable(unittest.TestCase):
@@ -133,5 +133,6 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
 
