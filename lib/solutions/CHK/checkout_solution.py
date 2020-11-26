@@ -17,7 +17,7 @@ class Discount:
         self.discounted_items = discounted_items
 
 
-root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
+root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner\\lib\\solutions\\CHK'
 
 
 def load_table(file_path: str) -> dict:
@@ -201,3 +201,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
