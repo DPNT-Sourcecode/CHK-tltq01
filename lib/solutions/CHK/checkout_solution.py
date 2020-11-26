@@ -114,6 +114,7 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
 
 def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
+
     # sort discount items by price desc
     sorted_items = sorted(list(
         filter(lambda i: i.item_id in discount.item_list, items)), key=lambda d: d.price, reverse=True)
@@ -192,5 +193,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
