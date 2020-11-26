@@ -128,7 +128,7 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
         # subtract from cart item count until quantity is reached
         elif item.item_id in cart_items.keys():
             # greater than discount.quantity # greater than or equal to
-            while cart[item.item_id] >= discount.quantity:
+            while cart[item.item_id] >= discount.quantity and items_to_discount >= cart[item.item_id]:
                 cart[item.item_id] -= discount.quantity
                 total += discount.amount
                 items_to_discount -= discount.quantity
@@ -184,6 +184,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
 
