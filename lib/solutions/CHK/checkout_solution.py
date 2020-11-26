@@ -130,27 +130,32 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
     cart_items = dict(
         filter(lambda c: c[0] in discount.item_list, cart.items()))
 
-    item_count = sum(cart_items.values())
+    item_count = 0
     # get exact number of items eligible for discount
-    items_to_discount = item_count - item_count % discount.quantity
+    items_to_discount = sum(cart_items.values()) - \
+        sum(cart_items.values()) % discount.quantity
     # 3
 
     # loop through until all eligible items are removed from cart
-    if discount.quantity > 0:
-        for item in sorted_items:
-            # subtract from cart item count until quantity is reached
-            if item.item_id in cart_items.keys():
-                # greater than discount.quantity # greater than or equal to
-                while cart[item.item_id] >= discount.quantity:
-                    cart[item.item_id] -= discount.quantity
-                    total += discount.amount
-                    items_to_discount -= discount.quantity
 
-                # item count less than remaining items_to_discount
-                if cart[item.item_id] > 0 and cart[item.item_id] < items_to_discount:
-                    items_to_discount -= cart[item.item_id]
-                    cart[item.item_id] = 0
-                    total += discount.amount
+    for item in sorted_items:
+        if items_to_discount > 0:
+            break
+
+        # subtract from cart item count until quantity is reached
+        if item.item_id in cart_items.keys():
+            # greater than discount.quantity # greater than or equal to
+            while cart[item.item_id] >= discount.quantity:
+                cart[item.item_id] -= discount.quantity
+                total += discount.amount
+                items_to_discount -= discount.quantity
+
+            # item count less than remaining items_to_discount
+            if cart[item.item_id] > 0 and cart[item.item_id] < items_to_discount:
+                items_to_discount -= cart[item.item_id]
+                cart[item.item_id] = 0
+
+                total += discount.amount
 
     return total
 
@@ -193,3 +198,4 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
