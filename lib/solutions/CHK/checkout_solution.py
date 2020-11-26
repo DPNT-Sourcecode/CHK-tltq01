@@ -89,9 +89,32 @@ def process_basic_discount(discount: Discount, prices: list, cart: dict) -> int:
 
 
 def process_bogo_discount(discount: Discount, prices: list, cart: dict) -> int:
+    total = 0
+    item = next(
+        filter(lambda p: p.item_id in discount.item_list, prices,), None)
 
-    # noinspection PyUnusedLocal
-    # skus = unicode string
+    discounted_item = next(filter(
+        lambda p: p.item_id in discount.discounted_items, prices), None)
+
+    if discount.item_list in cart.keys():
+
+        while cart[discount.item_id] >= discount.quantity:
+            # BOGO discount
+            if discount.item_to_discount in cart.keys() and cart[discount.item_to_discount] > 0:
+                cart[discount.item_id] -= discount.quantity
+                total += (item.price * discount.quantity)
+
+                cart[discount.item_to_discount] -= 1
+                total += (discounted_item.price - discount.amount)
+
+    return total
+
+
+def process_group_discount(discount: Discount, prices: list, cart: dict) -> int:
+    return 0
+
+# noinspection PyUnusedLocal
+# skus = unicode string
 
 
 def checkout(skus: str) -> int:
@@ -114,6 +137,8 @@ def checkout(skus: str) -> int:
                 total += process_basic_discount(discount, prices, cart)
             elif discount.discount_type == "BOGO":
                 total += process_bogo_discount(discount, prices, cart)
+            elif discount.discount_type == "BOGO":
+                total += process_group_discount(discount, prices, cart)
 
             item = next(
                 filter(lambda p: p.item_id in discount.item_list, prices,), None)
@@ -161,6 +186,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
