@@ -112,8 +112,9 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
                 cart[eligible_item] -= discount.quantity
                 total += (item.price * discount.quantity)
 
-                cart[item_to_discount] -= 1
-                total += (discounted_item.price - discount.amount)
+                if cart[item_to_discount] > 0:
+                    cart[item_to_discount] -= 1
+                    total += (discounted_item.price - discount.amount)
             else:
                 break
 
@@ -173,6 +174,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
