@@ -87,6 +87,8 @@ def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
                 # add the subtotal for the items less the discount to the final amount
                 total += (item.price *
                           discount.quantity) - discount.amount
+            else:
+                break
 
     return total
 
@@ -112,6 +114,8 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
 
                 cart[item_to_discount] -= 1
                 total += (discounted_item.price - discount.amount)
+            else:
+                break
 
     return total
 
@@ -169,6 +173,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
