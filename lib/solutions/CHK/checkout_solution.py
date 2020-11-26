@@ -63,8 +63,35 @@ def get_eligible_discounts(discounts: list, item_id: str) -> list:
     return filter(lambda d: item_id in d.item_list, discounts)
 
 
-# noinspection PyUnusedLocal
-# skus = unicode string
+def process_basic_discount(discount: Discount, prices: list, cart: dict) -> int:
+    total = 0
+    item = next(
+        filter(lambda p: p.item_id in discount.item_list, prices), None)
+
+    discounted_item = next(filter(
+        lambda p: p.item_id in discount.discounted_items, prices), None)
+
+    if discount.item_list in cart.keys():
+
+        while cart[discount.item_id] >= discount.quantity:
+            # basic discount
+            # if eligible item is the same as discounted item
+            if discount.item_to_discount == discount.item_id:
+
+                # remove item from cart and add price - discount to total
+                cart[discount.item_id] -= discount.quantity
+
+                # add the subtotal for the items less the discount to the final amount
+                total += (item.price *
+                          discount.quantity) - discount.amount
+
+    return total
+
+
+def process_bogo_discount(discount: Discount, prices: list, cart: dict) -> int:
+
+    # noinspection PyUnusedLocal
+    # skus = unicode string
 
 
 def checkout(skus: str) -> int:
@@ -83,8 +110,13 @@ def checkout(skus: str) -> int:
         discounts = load_discounts(cart.keys())
 
         for discount in discounts:
+            if discount.discount_type == "basic":
+                total += process_basic_discount(discount, prices, cart)
+            elif discount.discount_type == "BOGO":
+                total += process_bogo_discount(discount, prices, cart)
+
             item = next(
-                filter(lambda p: p.item_id in discount.item_list, prices), None)
+                filter(lambda p: p.item_id in discount.item_list, prices,), None)
 
             discounted_item = next(filter(
                 lambda p: p.item_id in discount.discounted_items, prices), None)
@@ -129,5 +161,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
