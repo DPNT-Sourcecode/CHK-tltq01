@@ -74,15 +74,15 @@ def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
     discounted_item = next(filter(
         lambda i: i.item_id == item_to_discount, items), None)
 
-    if discount.item_list in cart.keys():
+    if eligible_item in cart.keys():
 
-        while cart[discount.item_id] >= discount.quantity:
+        while cart[eligible_item] >= discount.quantity:
             # basic discount
             # if eligible item is the same as discounted item
-            if discount.item_to_discount == discount.item_id:
+            if item_to_discount == eligible_item:
 
                 # remove item from cart and add price - discount to total
-                cart[discount.item_id] -= discount.quantity
+                cart[eligible_item] -= discount.quantity
 
                 # add the subtotal for the items less the discount to the final amount
                 total += (item.price *
@@ -166,4 +166,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
