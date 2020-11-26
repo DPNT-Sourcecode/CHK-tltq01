@@ -18,37 +18,34 @@ class TestCheckout(unittest.TestCase):
     def test_multiple_items(self):
         self.assertEqual(checkout("ABCD"), 115)
 
-    def test_special_offers(self):
+    def test_basic_discount(self):
         self.assertEqual(checkout("AAA"), 130)
 
-    def test_multiple_special_offers(self):
+    def test_basic_discount_multiple(self):
         self.assertEqual(checkout("AAABB"), 175)
 
-    def test_special_offers_plus_one(self):
+    def test_basic_discount_plus_one(self):
         self.assertEqual(checkout("AAAA"), 180)
 
-    def test_special_offer_b(self):
+    def test_basic_discount_b(self):
         self.assertEqual(checkout("BB"), 45)
 
-    def test_special_offer_e_and_b(self):
+    def test_bogo_e_and_b(self):
         self.assertEqual(checkout("EEB"), 80)
 
-    def test_special_offer_e_and_b2(self):
+    def test_bogo_e_and_b2(self):
         self.assertEqual(checkout("BBEE"), 110)
 
-    def test_special_offer_six_a(self):
+    def test_basic_discount_six_a(self):
         self.assertEqual(checkout("AAAAAA"), 250)
 
-    def test_special_offer_one_f(self):
+    def test_bogo_one_f(self):
         self.assertEqual(checkout("F"), 10)
 
-    def test_special_offer_two_f(self):
+    def test_bogo_two_f(self):
         self.assertEqual(checkout("FF"), 20)
 
-    def test_special_offer_three_f(self):
-        self.assertEqual(checkout("FFF"), 20)
-
-    def test_special_offer_three_f(self):
+    def test_bogo_three_f(self):
         self.assertEqual(checkout("FFF"), 20)
 
 # 5H for 45
@@ -158,3 +155,4 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+

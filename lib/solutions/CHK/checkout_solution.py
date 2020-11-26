@@ -98,19 +98,16 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
     discounted_item = next(filter(
         lambda i: i.item_id == item_to_discount, items), None)
 
-    if eligible_item in cart.keys():
+    if eligible_item in cart.keys() and item_to_discount in cart.keys() and cart[item_to_discount] > 0:
         while cart[eligible_item] >= discount.quantity:
             # BOGO discount
-            if item_to_discount in cart.keys() and cart[item_to_discount] > 0:
-                cart[eligible_item] -= discount.quantity
-                total += (item.price * discount.quantity)
+            cart[eligible_item] -= discount.quantity
+            total += (item.price * discount.quantity)
 
-                if cart[item_to_discount] > 0:
-                    # could add this to discount object instead of hardcoding
-                    cart[item_to_discount] -= 1
-                    total += (discounted_item.price - discount.amount)
-            else:
-                break
+            if cart[item_to_discount] > 0:
+                # could add this to discount object instead of hardcoding
+                cart[item_to_discount] -= 1
+                total += (discounted_item.price - discount.amount)
 
     return total
 
@@ -195,4 +192,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
