@@ -128,11 +128,20 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
         filter(lambda i: i.item_id in discount.item_list, items))
 
     item_count = 0
-    # subtract from cart item count until quantity is reached
+
     for item in sorted_items:
-        item_count += cart[item.item_id]
-    # add static amount to total
-    # loop through until all eligible items are removed from cart
+        # subtract from cart item count until quantity is reached
+        if item.item_id in cart.keys():
+            while cart[item.item_id] >= discount.quantity:
+                cart[item.item_id] -= discount.quantity
+                total += discount.amount
+                item_count = 0
+
+        # add static amount to total if quantity is reached
+        if item_count >= discount.quantity:
+            pass
+
+        # loop through until all eligible items are removed from cart
 
     discounted_item = next(filter(
         lambda p: p.item_id in discount.discounted_items, items), None)
@@ -181,4 +190,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
