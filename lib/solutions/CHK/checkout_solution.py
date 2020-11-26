@@ -89,18 +89,31 @@ def checkout(skus: str) -> int:
             discounted_item = next(filter(
                 lambda p: p.item_id in discount.discounted_items, prices), None)
 
-            if discount.discounted_items in cart.keys():
+            if discount.item_list in cart.keys():
+
                 while cart[discount.item_id] >= discount.quantity:
+                    # basic discount
+                    # if eligible item is the same as discounted item
                     if discount.item_to_discount == discount.item_id:
+
+                        # remove item from cart and add price - discount to total
                         cart[discount.item_id] -= discount.quantity
+
+                        # add the subtotal for the items less the discount to the final amount
                         total += (item.price *
                                   discount.quantity) - discount.amount
+
+                    # BOGO discount
                     elif discount.item_to_discount in cart.keys() and cart[discount.item_to_discount] > 0:
                         cart[discount.item_id] -= discount.quantity
                         total += (item.price * discount.quantity)
 
                         cart[discount.item_to_discount] -= 1
                         total += (discounted_item.price - discount.amount)
+
+                    # Group Discount
+                    elif False:
+                        pass
                     else:
                         break
 
@@ -116,4 +129,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
