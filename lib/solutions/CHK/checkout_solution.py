@@ -9,11 +9,12 @@ class Price:
 
 
 class Discount:
-    def __init__(self, item_id, quantity, amount, item_to_discount):
-        self.item_id = item_id
+    def __init__(self, discount_type, item_list, quantity, amount, discounted_items):
+        self.discount_type = discount_type
+        self.item_list = item_list
         self.quantity = quantity
         self.amount = amount
-        self.item_to_discount = item_to_discount
+        self.discounted_items = discounted_items
 
 
 root = 'C:\\Dev\\Python\\i3verticals\\accelerate_runner'
@@ -43,8 +44,8 @@ def load_discounts(cart) -> list:
     data = load_table('db\\discounts.json')
     discounts = []
     for d in data:
-        p = Discount(d["item_id"], int(d["quantity"]),
-                     int(d["amount"]), d["item_to_discount"])
+        p = Discount(d["discount_type"], d["item_list"], int(d["quantity"]),
+                     int(d["amount"]), d["discounted_items"])
 
         # filter for only items in cart
         if p.item_id in cart:
@@ -108,5 +109,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
