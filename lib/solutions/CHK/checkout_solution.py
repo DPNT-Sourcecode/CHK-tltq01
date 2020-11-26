@@ -97,20 +97,20 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
     item_to_discount = discount.discounted_items[0]
 
     item = next(
-        filter(lambda i: i.item_id in discount.item_list, items,), None)
+        filter(lambda i: i.item_id == eligible_item, items,), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, items), None)
+        lambda p: p.item_id == item_to_discount, items), None)
 
-    if discount.item_list in cart.keys():
+    if eligible_item in cart.keys():
 
-        while cart[discount.item_id] >= discount.quantity:
+        while cart[eligible_item] >= discount.quantity:
             # BOGO discount
-            if discount.item_to_discount in cart.keys() and cart[discount.item_to_discount] > 0:
-                cart[discount.item_id] -= discount.quantity
+            if item_to_discount in cart.keys() and cart[item_to_discount] > 0:
+                cart[eligible_item] -= discount.quantity
                 total += (item.price * discount.quantity)
 
-                cart[discount.item_to_discount] -= 1
+                cart[item_to_discount] -= 1
                 total += (discounted_item.price - discount.amount)
 
     return total
@@ -154,7 +154,7 @@ def checkout(skus: str) -> int:
                 total += process_basic_discount(discount, items, cart)
             elif discount.discount_type == "BOGO":
                 total += process_bogo_discount(discount, items, cart)
-            elif discount.discount_type == "BOGO":
+            elif discount.discount_type == "group":
                 total += process_group_discount(discount, items, cart)
 
         # total remaining items after discounts
@@ -169,6 +169,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
