@@ -66,10 +66,10 @@ def get_eligible_discounts(discounts: list, item_id: str) -> list:
 def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
     total = 0
     item = next(
-        filter(lambda p: p.item_id in discount.item_list, items), None)
+        filter(lambda i: i.item_id in discount.item_list, items), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, items), None)
+        lambda i: i.item_id in discount.discounted_items, items), None)
 
     if discount.item_list in cart.keys():
 
@@ -163,9 +163,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
-
-
-
-
-
-
