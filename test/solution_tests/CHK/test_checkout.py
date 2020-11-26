@@ -123,7 +123,7 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout("ZZZZ"), 66)
 
     def test_group_desc(self):
-        self.assertEqual(checkout("ZXYT"), 45)
+        self.assertEqual(checkout("ZXYT"), 62)
 
     def test_group_ascend_price(self):
         self.assertEqual(checkout("XYTSZ"), 66)
@@ -146,4 +146,5 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 

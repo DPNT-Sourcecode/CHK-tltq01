@@ -131,26 +131,29 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
         filter(lambda c: c[0] in discount.item_list, cart.items()))
 
     item_count = sum(cart_items.values())
+    # get exact number of items eligible for discount
+    items_to_discount = item_count - item_count % discount.quantity
+    # 3
 
     # loop through until all eligible items are removed from cart
-    # while item_count >= discount.quantity:
-    for item in sorted_items:
-        # subtract from cart item count until quantity is reached
-        if item.item_id in cart_items.keys():
-            # greater than discount.quantity
-            while cart[item.item_id] >= discount.quantity:
-                cart[item.item_id] -= discount.quantity
-                total += discount.amount
-                item_count -= discount.quantity
+    if discount.quantity > 0:
+        for item in sorted_items:
+            # subtract from cart item count until quantity is reached
+            if item.item_id in cart_items.keys():
+                # greater than discount.quantity
+                while cart[item.item_id] >= discount.quantity:
+                    cart[item.item_id] -= discount.quantity
+                    total += discount.amount
+                    item_count -= discount.quantity
 
-            # greater than zero
-            # if cart[item.item_id] > 0:
-            #     item_count += cart[item.item_id]
+                # greater than zero
+                if cart[item.item_id] > 0 and item_count >= :
+                    item_count += cart[item.item_id]
 
-            # if item_count >= discount.quantity:
-            #     cart[item.item_id] -= discount.quantity
-            #     total += discount.amount
-            #     item_count = 0
+                # if item_count >= discount.quantity:
+                #     cart[item.item_id] -= discount.quantity
+                #     total += discount.amount
+                #     item_count = 0
 
     return total
 
@@ -193,6 +196,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
 
