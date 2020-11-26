@@ -128,7 +128,7 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
         filter(lambda i: i.item_id in discount.item_list, items))
 
     cart_items = dict(
-        filter(lambda k, v: k in discount.item_list, cart.items()))
+        filter(lambda c: c in discount.item_list, cart))
 
     item_count = sum(cart_items.values())
 
@@ -193,5 +193,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
