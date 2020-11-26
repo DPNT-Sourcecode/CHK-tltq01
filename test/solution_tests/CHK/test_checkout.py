@@ -130,6 +130,17 @@ class TestCheckout(unittest.TestCase):
         self.assertEqual(checkout(
             "ASDFLKJZXCVOIXUVPOIUQWELRKJQWERLKMNASDFKJOIUWEPROIUQPOIUOCXIUVOZIXUCVOIJALSKJDFASLKJERWEQMLNERQMN"), 3477)
 
+    def test_group_sssz(self):
+        self.assertEqual(checkout("SSSZ"), 65)
+
+    def test_all_1(self):
+        self.assertEqual(
+            checkout("ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZ"), 1602)
+
+    def test_all_2(self):
+        self.assertEqual(
+            checkout("LGCKAQXFOSKZGIWHNRNDITVBUUEOZXPYAVFDEPTBMQLYJRSMJCWH"), 1602)
+
 
 class TestLoadTable(unittest.TestCase):
     def test_load_table_not_none(self):
@@ -145,5 +156,6 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
 
