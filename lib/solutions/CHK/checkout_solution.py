@@ -75,9 +75,7 @@ def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
         lambda i: i.item_id == item_to_discount, items), None)
 
     if eligible_item in cart.keys():
-
         while cart[eligible_item] >= discount.quantity:
-            # basic discount
             # if eligible item is the same as discounted item
             if item_to_discount == eligible_item:
 
@@ -99,13 +97,12 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
     item_to_discount = discount.discounted_items[0]
 
     item = next(
-        filter(lambda i: i.item_id == eligible_item, items,), None)
+        filter(lambda i: i.item_id == eligible_item, items), None)
 
     discounted_item = next(filter(
-        lambda p: p.item_id == item_to_discount, items), None)
+        lambda i: i.item_id == item_to_discount, items), None)
 
     if eligible_item in cart.keys():
-
         while cart[eligible_item] >= discount.quantity:
             # BOGO discount
             if item_to_discount in cart.keys() and cart[item_to_discount] > 0:
@@ -201,4 +198,5 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
