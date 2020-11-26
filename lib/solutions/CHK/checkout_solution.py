@@ -110,3 +110,6 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+    prices = load_prices()
+    print(sum(map(lambda p: p.price, prices)))
+
