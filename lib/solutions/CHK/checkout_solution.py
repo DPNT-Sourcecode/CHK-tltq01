@@ -132,33 +132,27 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
 
     item_count = sum(cart_items.values())
 
+    # loop through until all eligible items are removed from cart
+    # while item_count >= discount.quantity:
     for item in sorted_items:
         # subtract from cart item count until quantity is reached
-        if item.item_id in cart.keys():
+        if item.item_id in cart_items.keys():
             # greater than discount.quantity
-            while cart[item.item_id] >= :
+            while cart[item.item_id] >= discount.quantity:
                 cart[item.item_id] -= discount.quantity
                 total += discount.amount
                 item_count = 0
 
             # greater than zero
-            if cart[item.item_id] > 0:
-                item_count += cart[item.item_id]
+            # if cart[item.item_id] > 0:
+            #     item_count += cart[item.item_id]
 
-            if item_count >= discount.quantity:
-                cart[item.item_id] -= discount.quantity
-                total += discount.amount
+            # if item_count >= discount.quantity:
+            #     cart[item.item_id] -= discount.quantity
+            #     total += discount.amount
                 item_count = 0
 
-        # loop through until all eligible items are removed from cart
-
-    discounted_item = next(filter(
-        lambda p: p.item_id in discount.discounted_items, items), None)
-
-    if discount.item_list in cart.keys():
-        pass
-
-    return 0
+    return total
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -199,6 +193,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
