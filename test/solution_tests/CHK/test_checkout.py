@@ -77,13 +77,11 @@ class TestCheckout(unittest.TestCase):
 
 # 3Q for 80
 
-
     def test_special_offer_three_q(self):
         self.assertEqual(checkout("QQQ"), 80)
 
 
 # 3R get one Q free
-
 
     def test_special_offer_three_r(self):
         self.assertEqual(checkout("RRR"), 150)
@@ -94,7 +92,6 @@ class TestCheckout(unittest.TestCase):
 
 # 3U get one U free
 
-
     def test_special_offer_three_u(self):
         self.assertEqual(checkout("UUU"), 120)
 
@@ -104,13 +101,11 @@ class TestCheckout(unittest.TestCase):
 
 # 2V for 90
 
-
     def test_special_offer_two_v(self):
         self.assertEqual(checkout("VV"), 90)
 
 
 # 3V for 130
-
 
     def test_special_offer_three_v(self):
         self.assertEqual(checkout("VVV"), 130)
@@ -120,6 +115,9 @@ class TestCheckout(unittest.TestCase):
 
     def test_group_three_z(self):
         self.assertEqual(checkout("ZZZ"), 45)
+
+    def test_group_three_different(self):
+        self.assertEqual(checkout("ZXY"), 45)
 
     def test_group_four_z(self):
         self.assertEqual(checkout("ZZZZ"), 66)
@@ -148,3 +146,4 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
