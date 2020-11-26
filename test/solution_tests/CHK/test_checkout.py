@@ -139,6 +139,10 @@ class TestCheckout(unittest.TestCase):
     def test_group_desc_price(self):
         self.assertEqual(checkout("ZSTYXX"), 90)
 
+    def test_time_to_complete(self):
+        self.assertEqual(checkout(
+            "ASDFLKJZXCVOIXUVPOIUQWELRKJQWERLKMNASDFKJOIUWEPROIUQPOIUOCXIUVOZIXUCVOIJALSKJDFASLKJERWEQMLNERQMN"), 3477)
+
 
 class TestLoadTable(unittest.TestCase):
     def test_load_table_not_none(self):
@@ -154,6 +158,7 @@ class TestLoadTable(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
 
 
 
