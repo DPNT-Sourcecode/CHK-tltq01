@@ -140,20 +140,17 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
         for item in sorted_items:
             # subtract from cart item count until quantity is reached
             if item.item_id in cart_items.keys():
-                # greater than discount.quantity
+                # greater than discount.quantity # greater than or equal to
                 while cart[item.item_id] >= discount.quantity:
                     cart[item.item_id] -= discount.quantity
                     total += discount.amount
-                    item_count -= discount.quantity
+                    items_to_discount -= discount.quantity
 
-                # greater than zero
-                if cart[item.item_id] > 0 and item_count >= :
-                    item_count += cart[item.item_id]
-
-                # if item_count >= discount.quantity:
-                #     cart[item.item_id] -= discount.quantity
-                #     total += discount.amount
-                #     item_count = 0
+                # item count less than remaining items_to_discount
+                if cart[item.item_id] > 0 and cart[item.item_id] < items_to_discount:
+                    items_to_discount -= cart[item.item_id]
+                    cart[item.item_id] = 0
+                    total += discount.amount
 
     return total
 
@@ -196,10 +193,3 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
-
-
-
-
-
-
-
