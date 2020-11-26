@@ -3,13 +3,13 @@ from os import path
 
 
 class Item:
-    def __init__(self, item_id, price):
+    def __init__(self, item_id: str, price: int):
         self.item_id = item_id
         self.price = price
 
 
 class Discount:
-    def __init__(self, discount_type, item_list, quantity, amount, discounted_items):
+    def __init__(self, discount_type: str, item_list: list, quantity: int, amount: int, discounted_items: list):
         self.discount_type = discount_type
         self.item_list = item_list
         self.quantity = quantity
@@ -40,7 +40,7 @@ def load_item_prices() -> list:
     return items
 
 
-def load_discounts(cart) -> list:
+def load_discounts(cart: str) -> list:
     data = load_table('db\\discounts.json')
     discounts = []
     for d in data:
@@ -55,12 +55,6 @@ def load_discounts(cart) -> list:
     sorted_discounts = sorted(
         discounts, key=lambda d: d.amount, reverse=True)
     return sorted_discounts
-
-
-def get_eligible_discounts(discounts: list, item_id: str) -> list:
-    eligible_discounts = []
-
-    return filter(lambda d: item_id in d.item_list, discounts)
 
 
 def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
@@ -78,9 +72,8 @@ def process_basic_discount(discount: Discount, items: list, cart: dict) -> int:
     if eligible_item in cart.keys() and item_to_discount == eligible_item:
         while cart[eligible_item] >= discount.quantity:
             # remove item from cart and add price - discount to total
+            # and add the subtotal for the items less the discount to the final amount
             cart[eligible_item] -= discount.quantity
-
-            # add the subtotal for the items less the discount to the final amount
             total += (item.price *
                       discount.quantity) - discount.amount
 
@@ -100,7 +93,6 @@ def process_bogo_discount(discount: Discount, items: list, cart: dict) -> int:
 
     if eligible_item in cart.keys() and item_to_discount in cart.keys() and cart[item_to_discount] > 0:
         while cart[eligible_item] >= discount.quantity:
-            # BOGO discount
             cart[eligible_item] -= discount.quantity
             total += (item.price * discount.quantity)
 
@@ -126,7 +118,6 @@ def process_group_discount(discount: Discount, items: list, cart: dict) -> int:
     # get exact number of items eligible for discount
     items_to_discount = sum(cart_items.values()) - \
         sum(cart_items.values()) % discount.quantity
-    # 3
 
     # loop through until all eligible items are removed from cart
 
@@ -193,6 +184,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("ZZZ"))
+
 
 
 
