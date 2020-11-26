@@ -57,6 +57,12 @@ def load_discounts(cart) -> list:
     return sorted_discounts
 
 
+def get_eligible_discounts(discounts: list, item_id: str) -> list:
+    eligible_discounts = []
+
+    return filter(lambda d: item_id in d.item_list, discounts)
+
+
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -109,6 +115,7 @@ def checkout(skus: str) -> int:
 
 if __name__ == "__main__":
     print(checkout("AAABBCDEEEFFF"))
+
 
 
 
